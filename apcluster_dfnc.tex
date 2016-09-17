@@ -9,18 +9,19 @@
 % definitions.
 % --------------------
 \newacro{AP}[AP]{affinity propagation}
-\newacro{AUD}[AUD]{Auditory}
-\newacro{BOLD}[BOLD]{Blood-Oxygen-Level Dependent}
-\newacro{CB}[CB]{Cerebellar}
-\newacro{CC}[CC]{Cognitive Control}
+\newacro{AUD}[AUD]{auditory}
+\newacro{BOLD}[BOLD]{blood-oxygenation-level dependent}
+\newacro{CB}[CB]{cerebellar}
+\newacro{CC}[CC]{cognitive control}
 \newacro{DFC}[DFC]{dynamic functional connectivity}
-\newacro{DMN}[DMN]{Default Mode Network}
-\newacro{EPI}[EPI]{Echo Planar Imaging}
+\newacro{dFNC}[dFNC]{dynamic functional network connectivity}
+\newacro{DMN}[DMN]{default mode network}
+\newacro{EPI}[EPI]{echo planar imaging}
 \newacro{FC}[FC]{functional connectivity}
 \newacro{FDR}[FDR]{false discovery rate}
 \newacro{fMRI}[fMRI]{functional magnetic resonance imaging}
-\newacro{FNC}[FNC]{Functional Network Connectivity}
-\newacro{GIFT}[GIFT]{Group-ICA Of fMRI Toolbox}
+\newacro{FNC}[FNC]{functional network connectivity}
+\newacro{GIFT}[GIFT]{group-ICA of fMRI toolbox}
 \newacro{HC}[HC]{healthy control}
 \newacro{IC}[IC]{independent component}
 \newacro{ICA}[ICA]{independent component analysis}
@@ -28,13 +29,13 @@
 \newacro{MRI}[MRI]{magnetic resonance imaging}
 \newacro{PC}[PC]{principal component}
 \newacro{PCA}[PCA]{principal component analysis}
-\newacro{SC}[SC]{Subcortical}
+\newacro{SC}[SC]{subcortical}
 \newacro{SM1}[SM]{spatial map}
 \newacro{SM2}[SM]{Sensorimotor}
 \newacro{SNR}[SNR]{signal-to-noise ratio}
 \newacro{SZ}[SZ]{schizophrenia patient}
 \newacro{TC}[TC]{timecourse}
-\newacro{VIS}[VIS]{Visual}
+\newacro{VIS}[VIS]{visual}
 
 
 % Title.
@@ -42,23 +43,24 @@
 \title{Identifying fMRI Dynamic Connectivity States Using A New Semi-supervised Clustering Method: Application to Schizophrenia}
 
 
-\name{Mustafa S Salman\textsuperscript{1,2}, Yuhui Du\textsuperscript{2} and Vince D Calhoun\textsuperscript{1,2} \thanks{This work was in part funded by NIH via a COBRE grant P20GM103472, R01 grant REB020407, and NSF grant 1539067.} }
+\name{Mustafa S Salman\textsuperscript{1,2}, Yuhui Du\textsuperscript{2} and Vince D Calhoun\textsuperscript{1,2} \thanks{This work was in part funded by NIH grants P20GM103472 and R01EB020407, and NSF grant 1539067.} }
 \address{\textsuperscript{1}University of New Mexico, Dept. of ECE, Albuquerque, NM \\
 \textsuperscript{2}The Mind Research Network, Albuquerque, NM}
 
 \begin{document}
+
 \ninept
 
 \maketitle
 
 \begin{abstract}
 
-Numerous studies have shown that brain \acl{FC} patterns can be time-varying over periods of tens of seconds. It is important to capture inherent non-stationary connectivity states for a better understanding of the influence of disease on brain connectivity. Among the existing work, K-means has been widely used to extract the connectivity states from \ac{DFC}. However, K-means may fail to converge due to extensive noise in \ac{DFC}. In this work, we proposed to use a semi-supervised clustering method to estimate the connectivity states. By applying K-means and the new method separately, we analyzed \ac{DFC} of 82 \aclp{HC} and 82 \aclp{SZ}, and explored group differences in the identified connectivity states. Results showed that the new approach found more and meaningful group differences than K-means. The identified alterations in \aclp{SZ} mainly lay in subcortical as well as temporal and frontal cortices. Our finding supports that our method is promising in exploring biomarkers of mental disorders.
+Numerous studies have shown that brain \acl{FC} patterns can be time-varying over periods of tens of seconds. It is important to capture inherent non-stationary connectivity states for a better understanding of the influence of disease on brain connectivity. Among existing work, K-means has been widely used to extract the connectivity states from \ac{DFC}. However, K-means may fail to converge [does it really fail? or is it just very slow? to my knowledge kmeans won't 'blow up' but can be exponentially slow in converging...] due to extensive noise in \ac{DFC}. In this work, we proposed to use a semi-supervised clustering method to estimate the connectivity states. By applying K-means and the new method separately, we analyzed \ac{DFC} of 82 \aclp{HC} and 82 \aclp{SZ}, and explored group differences in the identified connectivity states. Results showed that the new approach found more and more meaningful group differences than K-means. The identified differences in \aclp{SZ} versus controls mainly lay in subcortical as well as temporal and frontal cortices. Our finding supports that our method is a promising tool in exploring biomarkers of mental disorders.
 
 \end{abstract}
 
 \begin{keywords}
-Functional MRI, Dynamic Connectivity, Semi-supervised Clustering, Affinity Propagation, Schizophrenia
+Functional MRI, dynamic connectivity, semi-supervised clustering, affinity propagation, schizophrenia
 \end{keywords}
 
 
@@ -67,16 +69,16 @@ Functional MRI, Dynamic Connectivity, Semi-supervised Clustering, Affinity Propa
 
 Whole-brain \ac{FC} derived from \ac{fMRI} have shown its power in the study of healthy and diseased brain. Different from traditional static \ac{FC} analysis, dynamic \ac{FC} (\acs{DFC}) analysis can capture time-varying \ac{FC} patterns over tens of seconds \cite{allen_tracking_2014} \cite{calhoun_chronnectome:_2014} \cite{damaraju_dynamic_2014} \cite{du_group_2015} \cite{du_interaction_2016} \cite{rashid_dynamic_2014}. It is expected that the inherent non-stationary connectivity states from \ac{DFC} can provide informative biomarkers for distinguishing mental disorders.
 
-A key step in analyzing \ac{DFC} is to estimate the reoccuring connectivity states. So far the primary methods include K-means clustering \cite{allen_tracking_2014}, \ac{PCA} \cite{leonardi_disentangling_2014} as well as spatial and temporal \ac{ICA} \cite{du_group_2015} \cite{miller_higher_2016}. Among these approaches, K-means clustering, built into the \ac{GIFT} \href{http://mialab.mrn.org/software/gift/}{(http://mialab.mrn.org/software/gift/)}, is commonly used.
+A key step in analyzing \ac{DFC} is to estimate the reoccuring connectivity states. So far the primary methods include K-means clustering \cite{allen_tracking_2014}, \ac{PCA} \cite{leonardi_disentangling_2014} as well as spatial and temporal \ac{ICA} \cite{du_group_2015} \cite{miller_higher_2016}. Among these approaches, K-means clustering, built into the \ac{GIFT} (\href{http://mialab.mrn.org/software/gift/}{http://mialab.mrn.org/software/gift/}), is commonly used.
 
-Interpreting temporal variations in \ac{FC} is not straightforward because variations can also be induced by non-neural sources such as cardiac and respiratory processes as well as hardware instability \cite{hutchison_dynamic_2013}. K-means initializes cluster centroids by random sampling and iteratively refines them to minimize error. K-means is quite sensitive to the initial choice of centroids though this problem can be improved somewhat by multiple K-means runs with different initializations. However we found that K-means many fail to converge in clustering the time-varying \ac{FC} matrices probably due to extensive noise in \ac{DFC}. Therefore, the resulting connectivity states from K-means could be inaccurate, which impacts the effectiveness of the subsequent biomarker identification. We hope that prior information could help to improve the estimation of connectivity states.
+Interpreting temporal variations in \ac{FC} is not straightforward because variations can also be induced by non-neural sources such as cardiac and respiratory processes as well as hardware instability \cite{hutchison_dynamic_2013}. K-means initializes cluster centroids by random sampling and iteratively refines them to minimize error. K-means is quite sensitive to the initial choice of centroids though this problem can be improved somewhat by multiple K-means runs with different initializations. However we found that K-means may [fail...same question here as in abstract] to converge in clustering the time-varying \ac{FC} matrices probably due to extensive noise in \ac{DFC}. Therefore, the resulting connectivity states from K-means may be inaccurate, which impacts the effectiveness of the subsequent biomarker identification. In this paper we evaluate the use of prior information to improve the estimation of connectivity states.
 
-Recently \acl{AP}  based semi-supervised clustering method has attracted a lot of interest \cite{shine_temporal_2016}. This method performs clustering by using similarity measures between pairs of samples and propagating information until a high-quality set of exemplars and corresponding clusters gradually emerge \cite{frey_clustering_2007}. Its main advantage over K-means is that it simultaneously considers all data points as candidate centers and gradually identifies clusters, hence avoiding poor solutions caused by random initialization.
+An alternative semi-supervised clustering approach called \acl{AP}  provides [would cite key papers, mid-2000's....then can mention it has been used in a recent dynamic connectivity paper by shine et all, but was not compared to unsupervised clustering in the context of dynamic connectivity]. This method performs clustering by using similarity measures between pairs of samples and propagating information until a high-quality set of exemplars and corresponding clusters gradually emerge \cite{frey_clustering_2007}. Its main advantage over K-means is that it simultaneously considers all data points as candidate centers and gradually identifies clusters, hence avoiding poor solutions caused by random initialization.
 
 \section{Materials \& methods}
 \label{sec:MaterialsM}
 
-In this work we compared the group differences obtained from K-means and \ac{AP} clustering methods to evaluate the performance of each approach. Figure \ref{fig:Overview} contains and outline of the method.
+In this work we compared various properties of the group differences obtained from K-means and \ac{AP} clustering methods to evaluate the performance of each approach. Figure \ref{fig:Overview} contains an outline of the method.
 
 \subsection{Materials}
 \label{sec:Materials}
@@ -84,20 +86,20 @@ In this work we compared the group differences obtained from K-means and \ac{AP}
 \begin{figure}
   \centering
   \centerline{\includegraphics[width=7cm]{flow}}
-  \caption{Overview of methods. Preprocessed \acs{fMRI} data was subject to Group \acs{ICA} in order to parcellate whole brain into small networks. Then \ac{DFC} was estimated based on the time series of those networks using sliding window approach. Afterwards, connectivity states were estimated by performing K-means and \acl{AP} clustering methods on \ac{DFC} separately. Finally, group differences between \ac{HC} and \ac{SZ} in connectivity states were identified for each method.}
+  \caption{Overview of methods. Preprocessed \acs{fMRI} data was subject to Group \acs{ICA} in order to parcellate whole brain into small networks. Then \ac{dFNC} was estimated based on the time series of those networks using sliding window approach. Afterwards, connectivity states were estimated by performing K-means and \acl{AP} clustering methods on dFNC separately. Finally, group differences between \ac{HC} and \ac{SZ} in connectivity states were identified for each method.}
   \label{fig:Overview}
 \end{figure}
 
 Resting-state \ac{fMRI} data was collected from $82$ \ac{HC} (age: $37.7 \pm 10.8$, $19$ females) and $82$ \ac{SZ} (age: $38.0 \pm 14.0$, $17$ females) scanned on a 3-Tesla Siemens Trio scanner with a 12-channel radio frequency coil at the Mind Research Network (see our previous work \cite{du_interaction_2016} for details). The functional scans were acquired using gradient \ac{EPI} with the following parameters: echo time (TE) $= 29ms$, repeat time (TR) $= 2s$, flip angle $= 75^\circ$, slice thickness $= 3.5mm$, slice gap $= 1.05mm$, field of view $= 240mm$, matrix size $= 64\times 64$, voxel size $= 3.75mm\times 3.75mm \times 4.55mm$. Resting state scans consisted of $150$ whole brain images. During data acquisition, subjects were asked to remain alert with eyes open and keep their head still.
 
-A preprocessing pipeline developed at the Mind Research Network \cite{bockholt_mining_2010} was used to preprocess the fMRI data. First $6$ volumes from each scan was discarded to allow T1 equilibration. INRIAlign \cite{freire_what_2002} was used to realign the images. Then the data was spatially normalized to the standard \ac{MNI} space, resampled to $3mm\times 3mm\times 3mm$ voxels using the nonlinear (affine + low frequency direct cosine transform basis functions) registration implemented in SPM12 toolbox \href{http://www.fil.ion.ucl.ac.uk/spm}{(http://www.fil.ion.ucl.ac.uk/spm)}, and smoothed using a Gaussian kernel with a small full-width at half-maximum of $5mm$.
+A preprocessing pipeline developed at the Mind Research Network \cite{bockholt_mining_2010} was used to preprocess the fMRI data. The first $6$ volumes from each scan was discarded to allow T1 equilibration. INRIAlign \cite{freire_what_2002} was used to realign the images. Then the data was spatially normalized to the standard \ac{MNI} space, resampled to $3mm\times 3mm\times 3mm$ voxels using the nonlinear (affine + low frequency direct cosine transform basis functions) registration implemented in the SPM12 toolbox \href{http://www.fil.ion.ucl.ac.uk/spm}{(http://www.fil.ion.ucl.ac.uk/spm)}, and smoothed using a Gaussian kernel with a small full-width at half-maximum of $5mm$.
 
 \subsection{Group \ac{ICA} \& \acs{DFC}}
 \label{sec:Group}
 
-We performed a Group \ac{ICA} method on the preprocessed \ac{fMRI} data to obtain individual functional networks and their associated time series. First, group-level spatial ICA was performed using Infomax algorithm \cite{bell_information-maximization_1995} in \acs{GIFT} toolbox \href{http://mialab.mrn.org/software/gift/}{(http://mialab.mrn.org/software/gift/)} to obtain group-level independent components. Then subject-specific components and corresponding \acp{TC} were calculated based on the group-level components using GICA1 back-reconstruction \cite{calhoun_spatial_2001}. After discarding artifact-related components \cite{allen_baseline_2011}, remaining $36$ \acp{IC} were characterized as functional networks. Figure \ref{fig:IC} shows the axial view of the identified functional networks. We post-processed the \acp{TC} of $36$ networks by detrending, regressing out head motion, despiking and low-pass filtering ($<0.15Hz$).
+We performed a Group \ac{ICA} method on the preprocessed \ac{fMRI} data to obtain individual functional networks and their associated time series. First, group-level spatial ICA was performed using Infomax algorithm \cite{bell_information-maximization_1995} in \acs{GIFT} toolbox \href{http://mialab.mrn.org/software/gift/}{(http://mialab.mrn.org/software/gift/)} to obtain group-level independent components. Then subject-specific components and corresponding \acp{TC} were calculated based on the group-level components using GICA1 back-reconstruction \cite{calhoun_spatial_2001}. After discarding artifact-related components \cite{allen_baseline_2011}, the remaining $36$ \acp{IC} were characterized as functional networks. Figure \ref{fig:IC} shows the axial view of the identified functional networks. We post-processed the \acp{TC} of $36$ networks by detrending, regressing out head motion, despiking and performing low-pass filtering ($<0.15Hz$).
 
-\ac{DFC} between two networks was computed using a sliding window of size $26\: TR\: (52s)$ in steps of $1\: TR$ \cite{allen_tracking_2014}. The window was convolved with a Gaussian of $\sigma = 3\: TR$ to obtain tapering along the edges. Covariance was estimated from regularized inverse covariance matrix \cite{smith_network_2011} \cite{varoquaux_brain_2010} using graphical LASSO framework \cite{friedman_sparse_2008}. An additional L1 norm constraint was imposed on the inverse covariance matrix to enforce sparsity. Covariance between $36$ networks resulted in $36\times(36-1)/2=630$ connectivity. The covariance values were Fisher-Z transformed after computing \ac{DFC} for each subject \cite{damaraju_dynamic_2014}.
+\ac{dFNC} (dynamic connectivity between networks) was computed using a sliding window of size $26\: TR\: (52s)$ in steps of $1\: TR$ \cite{allen_tracking_2014}. The window was convolved with a Gaussian of $\sigma = 3\: TR$ to obtain tapering along the edges. Covariance was estimated from regularized inverse covariance matrix \cite{smith_network_2011} \cite{varoquaux_brain_2010} using graphical LASSO framework \cite{friedman_sparse_2008}. An additional L1 norm constraint was imposed on the inverse covariance matrix to enforce sparsity. Covariance between $36$ networks resulted in $36\times(36-1)/2=630$ connectivity. The covariance values were Fisher-Z transformed after computing \ac{dFNC} for each subject \cite{damaraju_dynamic_2014}.
 
 \subsection{Extracting connectivity states from \acs{DFC}}
 \label{sec:Clustering}
@@ -105,7 +107,7 @@ We performed a Group \ac{ICA} method on the preprocessed \ac{fMRI} data to obtai
 \subsubsection{K-means clustering}
 \label{sec:K2}
 
-K-means has been widely used to extract connectivity states from \ac{DFC}. Considering that the functional connectivity patterns reoccur across windows and subjects, we applied k-means clustering to the window direction-concatenated \ac{DFC} matrices \cite{damaraju_dynamic_2014}. At first a subset of windows (exemplars) were identified based on local maxima of standard deviation of the windows for each subject. The number of optimal clusters (five) was determined using gap statistic \cite{tibshirani_estimating_2001}. K-means was performed on these window direction-concatenated exemplars and five centroids were obtained. This set of group centroids was used to initialize a K-means clustering of all the windows from all subjects and was replicated $150$ times in order to avoid local minima. Finally, we estimated the subject-specific functional connectivity states for each subject by averaging the associated \ac{DFC} windows with the same label (Figure \ref{fig:states}) \cite{du_interaction_2016}.
+K-means has been widely used to extract dynamic connectivity states.  Considering that the functional connectivity patterns reoccur across windows and subjects, we applied k-means clustering to the window direction-concatenated \ac{dFNC} matrices \cite{damaraju_dynamic_2014}. At first a subset of windows (exemplars) were identified based on local maxima of standard deviation of the windows for each subject. The number of optimal clusters (five) was determined using the gap statistic \cite{tibshirani_estimating_2001}. K-means was performed on these window direction-concatenated exemplars and five centroids were obtained. This set of group centroids was used to initialize a K-means clustering of all the windows from all subjects and was replicated $150$ times in order to avoid local minima. Finally, we estimated the subject-specific functional connectivity states for each subject by averaging the associated \ac{DFC} windows with the same label (Figure \ref{fig:states}) \cite{du_interaction_2016}.
 
 \subsubsection{Affinity propagation clustering}
 \label{sec:Affinity}
@@ -121,7 +123,7 @@ K-means has been widely used to extract connectivity states from \ac{DFC}. Consi
   \centering
   \centerline{\includegraphics[width=\textwidth]{dfnc_kmeans_states_5city}}
   \centerline{\includegraphics[width=\textwidth]{dfnc_ap_states_5city}}
-  \caption{The averaged connectivity states across subjects for K-means and \ac{AP} methods. The occupancy (percentage of \ac{DFC} windows belonging to each state) is also shown. States are sorted according to similarity between connectivity states estimated by two approaches.}
+  \caption{The averaged connectivity states across subjects for K-means and \ac{AP} methods. The occupancy (percentage of \ac{dFNC} windows belonging to each state) is also shown. States are sorted according to similarity between connectivity states estimated by two approaches.}
   \label{fig:states}
 \end{figure*}
 
@@ -143,7 +145,7 @@ a(i,k) \leftarrow min \{ 0, r(k,k) + \underset{i'\: s.t.\: i'\notin\{i,k\}}{max}
 
 For the first iteration, the responsibilities are set to the input similarities and the availabilities are set to zero. In later iterations, the availabilities of some of the points drop below zero, indicating those being assigned to other exemplars. At any point during propagation, exemplars can be identified by combining responsibilities and availabilities i.e. $max\{a(i,k)+r(i,k)\}$. The termination criteria may be a fixed number of iterations, incremental changes in the messages falling below a threshold or decisions staying constant for certain number of iterations.
 
-There are several advantages of using \ac{AP} over K-means. In the K-means implementation of MATLAB which was used, one can specify the distance measure to be used. The number of clusters identified is fixed by input. One can specify replicates, or the number of times K-means should be initialized with random centroids. Starting it many times increases the possibility that at least one of the solutions is good. This is a big disadvantage of K-means; it is susceptible to local minima caused by poor initialization especially when dealing with DFC data which has very high dimensionality and may be influenced by noise. In contrast, \ac{AP} clustering simultaneously considers all data points as exemplars and thus avoids the problem caused by poor initialization. Just as K-means, different distance measures can be used to build the similarity matrix. It does not take the number of desired clusters as input; rather it identifies those automatically based on an input preference value (or vector). What makes semi-supervised methods like \ac{AP} desirable is that they allow using prior information to design parameters such as preference in order to estimate the connectivity states. In \ac{AP} clustering if the preference is set as a real-valued scalar, then all data-points are treated as equally suitable exemplars. A high value of preference results in a high number of clusters being identified and vice versa. But preference can also be specified as a vector of the same length as the number of data points where the preference of each data point to be chosen as an exemplar is based on prior information. Also, the clustering can be performed with only a small number of known similarities between the data points. 
+There are several advantages of using \ac{AP} over K-means. In the K-means implementation of MATLAB which was used, one can specify the distance measure to be used. The number of clusters identified is fixed by input. One can specify replicates, or the number of times K-means should be initialized with random centroids. Starting it many times increases the possibility that at least one of the solutions is good. This is a big disadvantage of K-means; it is susceptible to local minima caused by poor initialization especially when dealing with \ac{dFNC} data which has very high dimensionality and may be influenced by noise. In contrast, \ac{AP} clustering simultaneously considers all data points as exemplars and thus avoids the problem caused by poor initialization. Just as K-means, different distance measures can be used to build the similarity matrix. It does not take the number of desired clusters as input; rather it identifies those automatically based on an input preference value (or vector). What makes semi-supervised methods like \ac{AP} desirable is that they allow using prior information to design parameters such as preference in order to estimate the connectivity states. In \ac{AP} clustering if the preference is set as a real-valued scalar, then all data-points are treated as equally suitable exemplars. A high value of preference results in a high number of clusters being identified and vice versa. But preference can also be specified as a vector of the same length as the number of data points where the preference of each data point to be chosen as an exemplar is based on prior information. Also, the clustering can be performed with only a small number of known similarities between the data points. 
 
 \begin{figure*}
   \centering
@@ -153,14 +155,14 @@ There are several advantages of using \ac{AP} over K-means. In the K-means imple
   \label{fig:difference}
 \end{figure*}
 
-To apply \ac{AP} to \ac{DFC} data, we first computed the similarity matrix between \ac{DFC} from all windows of all subjects based on cityblock distance. For the sake of comparison we attempted to estimate the same number of clusters (five) from \ac{AP} as from K-means. \ac{AP} clustering was tried several times until an appropriate preference value was found using bisection method for which the algorithm produced five clusters. Because of the high number of observations and dimensionality of the data, at each of these trials the input similarity matrix was made sparse by randomly retaining $10\%$ of the data. \ac{AP} clustering was then performed on this sparse matrix ten times and the best solution based on maximum net similarity between the data points out of those ten runs was returned as the solution for the trial. Once five clusters were found, the connectivity states (\ac{AP} states, figure \ref{fig:states}) were computed as the average connectivity of similarly labeled windows.
+To apply \ac{AP} to \ac{dFNC} data, we first computed the similarity matrix between \ac{dFNC} from all windows of all subjects based on cityblock distance. For the sake of comparison we attempted to estimate the same number of clusters (five) from \ac{AP} as from K-means. \ac{AP} clustering was tried several times until an appropriate preference value was found using bisection method for which the algorithm produced five clusters. Because of the high number of observations and dimensionality of the data, at each of these trials the input similarity matrix was made sparse by randomly retaining $10\%$ of the data. \ac{AP} clustering was then performed on this sparse matrix ten times and the best solution based on maximum net similarity between the data points out of those ten runs was returned as the solution for the trial. Once five clusters were found, the connectivity states (\ac{AP} states, figure \ref{fig:states}) were computed as the average connectivity of similarly labeled windows.
 
 \vfill\pagebreak
 
 \subsection{Investigation of group differences in connectivity states}
 \label{sec:GroupD}
 
-For each method of estimating connectivity states, we investigated group difference between \acp{HC} and \acp{SZ} as follows. Based on the corresponding subject-specific states, the difference in each \ac{FC} strength between \acp{HC} and \acp{SZ} was evaluated using a two-sample T-test. Figure \ref{fig:difference} shows the t-values obtained from the tests where it passed the significance level of $p<0.05$ with \ac{FDR} correction \cite{benjamini_controlling_1995}. 
+For each method of estimating connectivity states, we investigated group difference between \acp{HC} and \acp{SZ} as follows. Based on the corresponding subject-specific states, the difference in each \ac{FC} strength between \acp{HC} and \acp{SZ} was evaluated using a two-sample T-test. Figure \ref{fig:difference} shows the t-values obtained from the tests passing a significance level of $p<0.05$ with \ac{FDR} correction for multiple comparisons \cite{benjamini_controlling_1995}. 
 
 \section{Results}
 \label{sec:Results}
@@ -174,9 +176,9 @@ Results showed that we had found more and interesting group differences from the
 \section{Discussion}
 \label{sec:Discussion}
 
-Affinity propagation is a promising semi-supervised clustering approach for \ac{DFC} analysis. It does not suffer from the shortcomings of K-means such as susceptibility to local minima due to poor initialization. It allows us to use prior information to set preference as well as perform clustering using a subset of data similarity to estimate the connectivity states. Our work clearly indicates that the semi-supervised approach can estimate more accurate connectivity states than the traditional K-means and provides more informative measures for differentiating \ac{SZ} and \ac{HC}. As we have seen, using \ac{AP} has allowed us to use a different dataset and still better replicate results from several previous studies on classification of these groups. Defining a framework consisting of optimal parameters for applying \ac{AP} to \ac{DFC} data seems to be the way forward.
+Affinity propagation is a promising semi-supervised clustering approach for \ac{dFNC} analysis. It does not suffer from the shortcomings of K-means such as susceptibility to local minima due to poor initialization. It allows us to use prior information to set preference as well as perform clustering using a subset of data similarity to estimate the connectivity states. Our work clearly indicates that a semi-supervised approach can estimate more accurate connectivity states than the traditional K-means and provides more informative measures for differentiating \ac{SZ} and \ac{HC}. As we have seen, using \ac{AP} has allowed us to use a different dataset and still better replicate results from several previous studies on classification of these groups. Defining a framework consisting of optimal parameters for applying \ac{AP} to \ac{dFNC} data seems to be the way forward.
 
-A limitation of \ac{AP} is its computational complexity. For higher dimensional data obtained from \ac{DFC} analysis along with high number of observations (windows) across all subjects, the currently available sparse implementations of the algorithm require large memory and time to complete. But at the core of \ac{AP} algorithm is the simple operation of local responsibility and availability updates, so the computational demand can be easily overcome by optimizing the available implementations and taking advantage of parallel computing.
+A limitation of \ac{AP} is its computational complexity. For higher dimensional data obtained from \ac{dFNC} analysis along with high number of observations (windows) across all subjects, the currently available sparse implementations of the algorithm require large memory and time to complete. But at the core of \ac{AP} algorithm is the simple operation of local responsibility and availability updates, so the computational demand can be easily overcome by optimizing the available implementations and taking advantage of parallel computing.
 
 We hope that progress towards estimation of meaningful connectivity states can be made by taking advantage of semi-supervised methods and that it will facilitate higher dimensional analysis of brain organization and advance the study of healthy and diseased brain.
 
