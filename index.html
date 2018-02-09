@@ -40,7 +40,13 @@ text {
 // http://blog.thomsonreuters.com/index.php/mobile-patent-suits-graphic-of-the-day/
 var links = [
   {source: "tasks", target: "MRN"},
-    {source: "MRN", target: "GIG-ICA paper"}
+    {source: "MRN", target: "GIG-ICA paper"},
+      {source: "GIG-ICA paper", target: "fix figures"},
+        {source: "fix figures", target: "line plot for classifiers"},
+        {source: "fix figures", target: "make new mask"},
+          {source: "make new mask", target: "generate figure with new mask"},
+            {source: "generate figure with new mask", target: "check if new figures are OK"},
+      {source: "GIG-ICA paper", target: "classification result"},
 ];
 
 var nodes = {};
