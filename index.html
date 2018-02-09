@@ -50,10 +50,11 @@
 </style>
 <body>
   <div class="graph"></div>
-  <script src="//d3js.org/d3.v3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.0.1/d3.v3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.3/underscore-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
   <script>
 
-    // http://blog.thomsonreuters.com/index.php/mobile-patent-suits-graphic-of-the-day/
     var links = [
       {source: "tasks", target: "MRN"},
         {source: "MRN", target: "GIG-ICA paper"},
@@ -76,10 +77,12 @@
     var width = 960,
         height = 500;
 
+    zoom = d3.behavior.zoom();
+    zoom.on("zoom", onZoomChanged);
+
     var force = d3.layout.force()
         .nodes(d3.values(nodes))
         .links(links)
-        .size([width, height])
         .linkDistance(60)
         .charge(-300)
         .on("tick", tick)
@@ -121,9 +124,6 @@
         .attr("x", 8)
         .attr("y", ".31em")
         .text(function(d) { return d.name; });
-
-    zoom = d3.behavior.zoom();
-    zoom.on("zoom", onZoomChanged);
 
     // Use elliptical arc path segments to doubly-encode directionality.
     function tick() {
