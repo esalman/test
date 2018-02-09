@@ -91,6 +91,9 @@
     var svg = d3.select("body").append("svg")
         .attr("width", width)
         .attr("height", height);
+    
+    resize();
+    centerGraph();
 
     // Per-type markers, as they don't inherit styles.
     svg.append("defs").selectAll("marker")
@@ -147,4 +150,24 @@
       graph.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
     }
 
+    function resize() {
+      graphWidth = window.innerWidth,
+      graphHeight = window.innerHeight;
+      graph.attr("width", graphWidth)
+           .attr("height", graphHeight);
+      layout.size([graphWidth, graphHeight])
+            .resume();
+    }
+    function centerGraph() {
+      var centerTranslate = [
+        (graphWidth / 2) - (graphWidth * 0.2 / 2),
+        (graphHeight / 2) - (graphHeight * 0.2 / 2),
+      ];
+      zoom.translate(centerTranslate);
+      // Render transition
+      graph.transition()
+        .duration(500)
+        .attr("transform", "translate(" + zoom.translate() + ")" + " scale(" + zoom.scale() + ")");
+    }
+    
   </script>
